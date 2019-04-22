@@ -34,21 +34,20 @@ class Predictor(nn.Module):
         self.kernel_size_pool = kernel_size_pool
         self.predict_window = predict_window
         self.conv1 = nn.Conv1d(1, nb_filters, kernel_size_conv, padding=1, bias=True)
-        self.maxpool1 = nn.MaxPool1d(kernel_size_pool)
+        self.maxpool = nn.MaxPool1d(kernel_size_pool)
         self.conv2 = nn.Conv1d(nb_filters,nb_filters, kernel_size_conv, padding=1, bias=True)
-        self.maxpool2 = nn.MaxPool1d(kernel_size_pool)
         # Need a way to calculate the size of the series after all the previous operations
         self.fc = nn.Linear(,predict_window)
 
     def forward(self, input):
-        out = self.maxpool1(F.relu(self.conv1(input)))
-        out2 = self.maxpool2(F.relu(self.conv2(out)))
+        out = self.maxpool(F.relu(self.conv1(input)))
+        out2 = self.maxpool(F.relu(self.conv2(out)))
     
         # Need to call out2.view(nb_ts,-1) to flatten before calling nn.Linear()
         # with nb_ts which is the number of time series (i.e. 1 for univariate 
         # and more than one for multivariate)
         out2 = out2.view(self.nb_ts, -1)
-        
+
         result = F.relu(nn.Linear(out2))
 
         return result
