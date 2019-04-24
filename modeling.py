@@ -8,7 +8,7 @@ with open('config.json') as config_data_file:
 
 # Store sequence size and prediction window size
 w = config['general']['w']
-p_w = config['general']['w']
+p_w = config['general']['p_w']
 
 # Identify algorithms to use
 algs = []
