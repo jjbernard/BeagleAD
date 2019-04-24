@@ -6,4 +6,15 @@ import json
 with open('config.json') as config_data_file:
     config = json.load(config_data_file)
 
-print(config)
+# Store sequence size and prediction window size
+w = config['general']['w']
+p_w = config['general']['w']
+
+# Identify algorithms to use
+algs = []
+for key, value in config['methods'].items():
+    algs.append(value)
+
+# Store parameters for algorithms
+parameters = dict()
+
