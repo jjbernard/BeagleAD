@@ -1,0 +1,16 @@
+{
+    "general":{
+        "w":20,
+        "p_w":1
+    },
+    "methods":{
+        "algo1":"deepant"
+    },
+    "algos":{
+        "deepant":{
+            "nb_filters":32,
+            "kernel_size_conv":3,
+            "kernel_size_pool":2
+        }
+    }
+}
