@@ -18,13 +18,14 @@ class Predictor(nn.Module):
         Each convolutional layer is composed of 32 filters. 
         We use a stride of 1 and no padding for the convolutional layers
         Args:
-            - nb_ts
-            - nb_filters
-            - kernel_size_conv
-            - kernel_size_pool
-            - predict_window
+            - nb_ts: number of time series
+            - nb_filters: number of filters for convolution layers
+            - kernel_size_conv: size of the filters for the convolution layers
+            - kernel_size_pool: size of the filters for the max pool layers
+            - w: size of the sequence
+            - p_w: number of steps in the future to predict
     """
-    def __init__(self, nb_ts, nb_filters, kernel_size_conv, kernel_size_pool, predict_window):
+    def __init__(self, nb_ts, nb_filters, kernel_size_conv, kernel_size_pool, w, p_w):
         super(Predictor, self).__init__()
         # Input for nn.Conv1d() is nb input channels, nb output channels, kernel size
         # The number of channel is going to be 1
@@ -32,12 +33,13 @@ class Predictor(nn.Module):
         self.nb_filters = nb_filters
         self.kernel_size_conv = kernel_size_conv
         self.kernel_size_pool = kernel_size_pool
-        self.predict_window = predict_window
+        self.w = w
+        self.p_w = p_w
         self.conv1 = nn.Conv1d(1, nb_filters, kernel_size_conv, padding=1, bias=True)
         self.maxpool = nn.MaxPool1d(kernel_size_pool)
         self.conv2 = nn.Conv1d(nb_filters,nb_filters, kernel_size_conv, padding=1, bias=True)
         # Need a way to calculate the size of the series after all the previous operations
-        self.fc = nn.Linear(,predict_window)
+        self.fc = nn.Linear(w - 2 * (kernel_size_pool - 1),p_w)
 
     def forward(self, input):
         out = self.maxpool(F.relu(self.conv1(input)))
