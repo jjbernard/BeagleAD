@@ -11,10 +11,10 @@ w = config['general']['w']
 p_w = config['general']['p_w']
 
 # Identify algorithms to use
-algs = []
-for key, value in config['methods'].items():
-    algs.append(value)
+algs = config['methods']['algs']
 
 # Store parameters for algorithms
 parameters = dict()
 
+for alg in algs:
+    parameters[alg] = config['algos'][alg]

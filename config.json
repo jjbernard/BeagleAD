@@ -3,9 +3,7 @@
         "w":20,
         "p_w":1
     },
-    "methods":{
-        "algo1":"deepant"
-    },
+    "methods":{"algs":["deepant"]},
     "algos":{
         "deepant":{
             "nb_filters":32,
