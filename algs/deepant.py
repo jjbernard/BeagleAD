@@ -6,7 +6,7 @@
 import pytorch.nn as nn
 import pytorch.nn.functional as F
 
-class Predictor(nn.Module):
+class DAPredictor(nn.Module):
     """ Defines the neural network used for Prediction. 
         It is composed of the following components:
             - a convolutional layer with a ReLU activation

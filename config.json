@@ -1,7 +1,8 @@
 {
     "general":{
         "w":20,
-        "p_w":1
+        "p_w":1,
+        "epochs":100
     },
     "methods":{"algs":["deepant"]},
     "algos":{
