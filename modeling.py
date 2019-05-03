@@ -1,6 +1,6 @@
-# This file will load the configuration for the selected algorithm and create a model
-# using the XXPredictor class corresponding to the selected algorithm 
-# with a DataLoader object
+# This file will load the configuration for the selected algorithm and 
+# create a model using the XXPredictor class corresponding to the 
+# selected algorithm with a DataLoader object
 
 import json
 from algs import DAPredictor
@@ -28,7 +28,8 @@ for alg in algs:
 
 nb_ts = 1
 
-# Method to return the model to create
+# Method to return the model to create. There is probably a more elegant way
+# to do this...
 def modelSelector(name, params):
     if name == "deepant":
         return DAPredictor(nb_ts, params[name]['nb_filters'], 
