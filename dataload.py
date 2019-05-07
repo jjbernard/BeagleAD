@@ -12,7 +12,7 @@ from torch.utils.data import DataLoader, TensorDataset
 # Timestamp is considered the first column of the dataset
 
 def createTSDataLoader(filename='data.csv', train_size, bs, w, p_w):
-    """Create two dataloaders for the training and validation datasets."""
+    """Create dataloaders for the training and validation datasets."""
 
     dirpath = Path('Data')
     path = dirpath / filename
