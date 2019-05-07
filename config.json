@@ -2,7 +2,11 @@
     "general":{
         "w":20,
         "p_w":1,
-        "epochs":100
+        "epochs":100,
+        "learning_rate":0.01,
+        "train_size":0.8,
+        "batch_size":64,
+        "data_file":"data.csv"
     },
     "methods":{"algs":["deepant"]},
     "algos":{

@@ -3,6 +3,7 @@
 # selected algorithm with a DataLoader object
 
 import json
+import torch
 from algs import DAPredictor
 
 with open('config.json') as config_data_file:
@@ -12,6 +13,9 @@ with open('config.json') as config_data_file:
 w = config['general']['w']
 p_w = config['general']['p_w']
 max_epochs = config['general']['epochs']
+lr = config['general']['learning_rate']
+bs = config['general']['batch_size']
+train_size = config['general']['train_size']
 
 # Identify algorithms to use
 algs = config['methods']['algs']
@@ -42,3 +46,7 @@ for alg in algs:
     model = modelSelector(alg, parameters)
     for epoch in range(max_epochs):
         pass
+
+
+if __name__ == "__main__":
+    pass # actually refactor the code above to call it in a function...
