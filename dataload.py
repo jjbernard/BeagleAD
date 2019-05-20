@@ -3,6 +3,7 @@
 
 import pandas as pd
 from pathlib import Path
+import torch
 from torch.utils.data import DataLoader, TensorDataset
 
 # Data should be stored in the Data/ directory as a CSV file
@@ -11,14 +12,14 @@ from torch.utils.data import DataLoader, TensorDataset
 # M is the number of features (M+1 because we end up with a timestamp column)
 # Timestamp is considered the first column of the dataset
 
-def createTSDataLoader(filename='data.csv', train_size, bs, w, p_w):
+def createTSDataLoader(train_size, bs, w, p_w, filename='data.csv'):
     """Create dataloaders for the training and validation datasets."""
 
     dirpath = Path('Data')
     path = dirpath / filename
     data = pd.read_csv(path)
 
-    data = data.iloc[:,1:]
+    data = data.iloc[:,1:].to_numpy()
 
     # We consider both training and validation data is in the same dataset
     N = len(data)
@@ -33,11 +34,12 @@ def createTSDataLoader(filename='data.csv', train_size, bs, w, p_w):
     # Total sequence to go over is N + 1 - w - p_w
     seq = N + 1 - w - p_w
     for i in range(seq):
-        X_temp, y_temp = data.iloc[i:i+w], data.iloc[i+w:i+w+p_w]
+        X_temp, y_temp = data[i:i+w], data[i+w:i+w+p_w]
         X.append(X_temp)
         y.append(y_temp)
 
     idx = int(len(X) * train_size)
+    X, y = torch.tensor(X).float(), torch.tensor(y).float()
 
     # Needs to define x and y from data
     train_ds = TensorDataset(X[:idx], y[:idx])
