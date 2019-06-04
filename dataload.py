@@ -19,7 +19,7 @@ def createTSDataLoader(train_size, bs, w, p_w, filename='data.csv'):
     path = dirpath / filename
     data = pd.read_csv(path)
 
-    data = data.iloc[:,1:].to_numpy()
+    data = data.iloc[:,1:].values
 
     # We consider both training and validation data is in the same dataset
     N = len(data)
