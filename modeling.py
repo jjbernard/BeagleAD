@@ -47,6 +47,10 @@ def modelSelector(name, params):
                             params[name]['kernel_size_conv'],
                             params[name]['kernel_size_pool'], w, p_w)
 
+lossfunctions = {
+    'MAE': nn.L1Loss(reduction='mean')
+}
+
 if __name__ == "__main__":
 
     # Loop over the methods selected to train the algorithm
@@ -55,7 +59,7 @@ if __name__ == "__main__":
         # We need to include the Loss function as a parameter.
         # For DeepAnt, this is Mean Absolute Error (L1Loss in Pytorch)
         
-        criterion = nn.L1Loss(reduction='mean')
+        criterion = lossfunctions[parameters[alg]['loss']]
         optimizer = optim.SGD(model.parameters(), lr = lr, momentum=0.9)
         for epoch in range(max_epochs):
             
