@@ -4,7 +4,7 @@
 
 import json
 import torch
-from algs import DAPredictor
+from algs.deepant import DAPredictor
 from dataload import createTSDataLoader
 
 with open('config.json') as config_data_file:
@@ -31,8 +31,8 @@ for alg in algs:
 # identify the number of time series from the DataSet / DataLoader
 # Dummy values at this stage
 
-train_dl, valid_dl = createTSDataLoader(train_size, bs, w, 
-                                        p_w, filename='data.csv')
+train_dl, valid_dl, nb_ts = createTSDataLoader(train_size, bs, w, 
+                                                p_w, filename='data.csv')
 
 # Method to return the model to create. There is probably a more elegant way
 # to do this...

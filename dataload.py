@@ -19,6 +19,7 @@ def createTSDataLoader(train_size, bs, w, p_w, filename='data.csv'):
     path = dirpath / filename
     data = pd.read_csv(path)
 
+    nb_ts = data.shape[1] - 1
     data = data.iloc[:,1:].values
 
     # We consider both training and validation data is in the same dataset
@@ -39,7 +40,7 @@ def createTSDataLoader(train_size, bs, w, p_w, filename='data.csv'):
         y.append(y_temp)
 
     idx = int(len(X) * train_size)
-    X, y = torch.tensor(X).float(), torch.tensor(y).float()
+    X, y = torch.Tensor(X).float(), torch.Tensor(y).float()
 
     # Needs to define x and y from data
     train_ds = TensorDataset(X[:idx], y[:idx])
@@ -48,4 +49,4 @@ def createTSDataLoader(train_size, bs, w, p_w, filename='data.csv'):
     train_ld = DataLoader(train_ds, batch_size=bs, shuffle=False)
     valid_ld = DataLoader(valid_ds, batch_size=bs, shuffle=False)
 
-    return train_ld, valid_ld
+    return train_ld, valid_ld, nb_ts

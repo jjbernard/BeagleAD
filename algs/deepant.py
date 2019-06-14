@@ -3,8 +3,8 @@
 # by MOHSIN MUNIR, SHOAIB AHMED SIDDIQUI,ANDREAS DENGEL AND SHERAZ AHMED
 # DOI: 10.1109/ACCESS.2018.2886457
 
-import pytorch.nn as nn
-import pytorch.nn.functional as F
+import torch.nn as nn
+import torch.nn.functional as F
 
 class DAPredictor(nn.Module):
     """ Defines the neural network used for Prediction. 
@@ -26,7 +26,7 @@ class DAPredictor(nn.Module):
             - p_w: number of steps in the future to predict
     """
     def __init__(self, nb_ts, nb_filters, kernel_size_conv, kernel_size_pool, w, p_w):
-        super(Predictor, self).__init__()
+        super(DAPredictor, self).__init__()
         # Input for nn.Conv1d() is nb input channels, nb output channels, kernel size
         # The number of channel is going to be 1
         self.nb_ts = nb_ts
@@ -50,6 +50,6 @@ class DAPredictor(nn.Module):
         # and more than one for multivariate)
         out2 = out2.view(self.nb_ts, -1)
 
-        result = F.relu(nn.Linear(out2))
-
+        result = F.relu(self.fc(out2))
+ 
         return result
