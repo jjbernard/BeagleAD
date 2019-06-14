@@ -52,7 +52,10 @@ if __name__ == "__main__":
     # Loop over the methods selected to train the algorithm
     for alg in algs:
         model = modelSelector(alg, parameters)
-        criterion = nn.CrossEntropyLoss()
+        # We need to include the Loss function as a parameter.
+        # For DeepAnt, this is Mean Absolute Error (L1Loss in Pytorch)
+        
+        criterion = nn.L1Loss(reduction='mean')
         optimizer = optim.SGD(model.parameters(), lr = lr, momentum=0.9)
         for epoch in range(max_epochs):
             
