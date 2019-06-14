@@ -14,7 +14,8 @@
         "deepant":{
             "nb_filters":32,
             "kernel_size_conv":3,
-            "kernel_size_pool":2
+            "kernel_size_pool":2,
+            "accuracy":"MAE"
         }
     }
 }
