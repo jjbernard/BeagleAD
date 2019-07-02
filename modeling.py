@@ -9,6 +9,7 @@ from dataload import createTSDataLoader
 import torch.nn as nn
 import torch.optim as optim
 from pathlib import Path
+import numpy as np
 
 
 with open('config.json') as config_data_file:
@@ -56,9 +57,6 @@ if __name__ == "__main__":
     # Loop over the methods selected to train the algorithm
     for alg in algs:
         model = modelSelector(alg, parameters)
-        # We need to include the Loss function as a parameter.
-        # For DeepAnt, this is Mean Absolute Error (L1Loss in Pytorch)
-        
         criterion = lossfunctions[parameters[alg]['loss']]
         optimizer = optim.SGD(model.parameters(), lr = lr, momentum=0.9)
         for epoch in range(max_epochs):
@@ -77,11 +75,26 @@ if __name__ == "__main__":
 
         torch.save(model, filename)
 
-    # Evaluate accuracy with validation dataset
+    # Evaluate accuracy on validation dataset
 
     for alg in algs:
-        pass
+        print('Accuracy of model {}'.format(alg))
+        print('------------------------------------------------------------------')
+        filename = MODELPATH / alg
+        model = torch.load(filename)
+        model.eval()
+        accuracies = []
+        for i, data in enumerate(valid_dl):
+            inputs = data[0]
+            groundtruth = data[1]
+            outputs = model(inputs)
+            accuracies.append(nn.MSELoss(inputs, outputs, reduction='mean')) 
 
+        accuracy = np.mean(accuracies)
+        print('Accuracy is {}'.format(accuracy))
+        print('*******************************************************************')
+
+        
 
     
 
