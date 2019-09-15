@@ -95,6 +95,21 @@ if __name__ == "__main__":
         print('*******************************************************************')
 
         
+def fit(epochs, alg, model, criterion, optimizer, train_dl):
+    for epoch in range(epochs):
+        
+        for i, data in enumerate(train_dl):
+            inputs = data[0]
+            targets = data[1]
+            
+            outputs = model(inputs)
+            loss = criterion(outputs, targets)
+            loss.backward()
+            optimizer.step()
+            optimizer.zero_grad()
+
+
+
 
     
 
