@@ -95,7 +95,10 @@ if __name__ == "__main__":
         print('*******************************************************************')
 
         
-def fit(epochs, alg, model, criterion, optimizer, train_dl):
+def fit(epochs, alg, parameters, train_dl):
+    
+    model, criterion, optimizer = get_model(alg, parameters)
+    
     for epoch in range(epochs):
         
         for i, data in enumerate(train_dl):
