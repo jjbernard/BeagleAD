@@ -107,7 +107,13 @@ def fit(epochs, alg, model, criterion, optimizer, train_dl):
             loss.backward()
             optimizer.step()
             optimizer.zero_grad()
+            
+    save(model, alg)
 
+def save(model, alg):
+    filename = MODELPATH / alg
+    
+    torch.save(model, filename)
 
 
 
