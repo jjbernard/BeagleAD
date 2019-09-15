@@ -115,7 +115,12 @@ def save(model, alg):
     
     torch.save(model, filename)
 
-
+def get_model(alg, parameters):
+    model = modelSelector(alg, parameters)
+    criterion = lossfunctions[parameters[alg]['loss']]
+    optimizer = optim.SGD(model.parameters(), lr=lr, momentum=0.9)
+    
+    return model, criterion, optimizer
 
     
 
