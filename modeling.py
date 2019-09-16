@@ -99,6 +99,7 @@ def fit(epochs, alg, parameters, train_dl):
     
     model, criterion, optimizer = get_model(alg, parameters)
     
+    model.training()
     for epoch in range(epochs):
         
         for i, data in enumerate(train_dl):
@@ -125,7 +126,27 @@ def get_model(alg, parameters):
     
     return model, criterion, optimizer
 
+def validate(alg, valid_dl):
+    filename = MODELPATH / alg
+    model = torch.load(filename)
     
+    model.eval()
+    print('Accuracy of model {}'.format(alg))
+    print('------------------------------------------------------------------')
+
+    accuracies = []
+    for i, data in enumerate(valid_dl):
+        inputs = data[0]
+        groundtruth = data[1]
+        outputs = model(inputs)
+
+        # Why nn.MSELoss() ? --> Need to be reviewed and documented
+        accuracies.append(nn.MSELoss(inputs, outputs, reduction='mean')) 
+
+    accuracy = np.mean(accuracies)
+    print('Accuracy is {}'.format(accuracy))
+    print('*******************************************************************')
+
 
 
 
