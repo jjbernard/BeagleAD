@@ -9,6 +9,6 @@
     - [ ] Review fast.ai course (part 2) to create a databunch class specific for time series. 
     - [ ] Review and adjust the class that creates the model
     - [ ] Create a generic model class that can be derived to create subclasses for all algorithms
-- [ ] Continue tests in notebooks:
-    - [ ] Instead of using nb of channels as the number of variables in a time series, try keeping number of channels = 1 and add a dimension to the input data (through `torch.unsqueeze()`). This should allow us to keep the dimensions as they are and not permute them as it is currently done in the code. 
+- [X] Continue tests in notebooks:
+    - [X] Instead of using nb of channels as the number of variables in a time series, try keeping number of channels = 1 and add a dimension to the input data (through `torch.unsqueeze()`). This should allow us to keep the dimensions as they are and not permute them as it is currently done in the code. 
 
