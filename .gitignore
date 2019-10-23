@@ -1,4 +1,4 @@
-Data/*.csv
+# Data/*.csv
 Models/*
 __pycache__/
 __pycache__/*
